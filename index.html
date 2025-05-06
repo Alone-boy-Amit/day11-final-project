@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Electronic Snake Game</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      background: #111;
+      box-shadow: 0 0 20px #0f0;
+      border: 2px solid lime;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game" width="600" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    const box = 20;
+    let snake = [];
+    for (let i = 10; i > 0; i--) {
+      snake.push({ x: i * box, y: 10 * box });
+    }
+
+    let direction = "RIGHT";
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+      else if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+      else if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+      else if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
+    });
+
+    function drawSnakeSegment(x, y, isHead) {
+      ctx.fillStyle = isHead ? "#0f0" : "#00ff00";
+      ctx.shadowColor = "#0f0";
+      ctx.shadowBlur = 10;
+      ctx.fillRect(x, y, box, box);
+      ctx.shadowBlur = 0;
+    }
+
+    function draw() {
+      ctx.fillStyle = "#111";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < snake.length; i++) {
+        drawSnakeSegment(snake[i].x, snake[i].y, i === 0);
+      }
+
+      let headX = snake[0].x;
+      let headY = snake[0].y;
+
+      if (direction === "LEFT") headX -= box;
+      if (direction === "RIGHT") headX += box;
+      if (direction === "UP") headY -= box;
+      if (direction === "DOWN") headY += box;
+
+      // Move
+      const newHead = { x: headX, y: headY };
+      snake.pop();
+      snake.unshift(newHead);
+
+      // Collision with wall
+      if (
+        headX < 0 || headX >= canvas.width ||
+        headY < 0 || headY >= canvas.height
+      ) {
+        clearInterval(game);
+        alert("💀 Game Over! Saanp diwar se takra gaya!");
+      }
+
+      // Collision with itself
+      for (let i = 1; i < snake.length; i++) {
+        if (snake[i].x === newHead.x && snake[i].y === newHead.y) {
+          clearInterval(game);
+          alert("💀 Game Over! Saanp ne khud ko kaat liya!");
+        }
+      }
+    }
+
+    const game = setInterval(draw, 100);
+  </script>
+</body>
+</html>
