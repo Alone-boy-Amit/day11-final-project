@@ -1,99 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="google-site-verification" content="InYBShTyK5HPy9XQcTJT_DkTKvCtZ5rblj_ROaerj30" />
-  <title>My Amazing Project - Day 11 | Alone Boy Amit</title>
+  <title>Calculate me! - Invented by Alone_boy</title>
   <meta name="description" content="Yeh ek coding project hai jo maine GitHub par host kiya hai. Check it out!">
-  <meta name="keywords" content="HTML, GitHub Pages, Project, Alone-boy-Amit, Electronic-Game, Coding, Portfolio">
+  <meta name="keywords" content="HTML, GitHub Pages, Project, Alone-boy-Amit, Coding, Portfolio">
   <meta name="robots" content="index, follow">
-
   <style>
-    body {
-      margin: 0;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+            body {
+                background-color: #333;
+                color: azure;
+                font-family: sans-serif;
+                height: 100%;
+                width: 100%;
+            }
+            .button {
+                padding: 14px 20px;
+                margin: 5px 5px;
+                border: 2px groove rgb(9, 50, 233);
+                border-radius: 5px;
+                box-shadow: 2px 2px 4px rgb(1, 253, 232);
+                transition: all 0.3s ease-out;
+                cursor: pointer;
+                }
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.2);
     }
-    canvas {
-      background: #111;
-      box-shadow: 0 0 20px #0f0;
-      border: 2px solid lime;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="game" width="600" height="600"></canvas>
-  <script>
-    const canvas = document.getElementById("game");
-    const ctx = canvas.getContext("2d");
+            h2 {
+                background:linear-gradient(45deg, rgb(0, 255, 21), rgb(241, 238, 5));
+                color: rgb(255, 49, 49);
+                text-align: center;
+                padding: 15px 0px;
+                border-radius: 7px;
+                box-shadow: 0px 0px 16px rgb(0, 0, 0);
+                text-shadow: 2px 2px 4px rgb(238, 255, 0);
+                animation: float 1.7s ease-in-out infinite alternate;
+            }
+            @keyframes float {
+                from {transform: translateY(0px);}
+                to {transform: translateY(-10px);}
+            }
+            .container {
+                background-color: #6b6909;
+                text-align: center;
+                
+            }
+            .bg-red {
+                background: red;
+            }
+            .mx-auto {
+                margin: auto;
+            }
+            .m-w-20 {
+                max-width: 30vw;
+            }
+            .flex {
+                display: flex;
+            }
+            .flex-col {
+                flex-direction: column;
+            }
+            .items-center {
+                align-items: center;
+            }
+            .row {
+                margin: 9px 0;
+                margin-top: 14px;
+            }
+            
+            .abs-box {
+                
+                margin-bottom: 55px;
+                position: absolute;
+            }
+            .input {
+                font-size: 23px;
+                margin: 0px;
+                padding: 10px 0px;
+                border: 5px double #ff0000;
+                border-radius: 7px;
+            }
+        </style>
+  </head>
+    <body>
+        <b>
+        <h2 class="text-center"> 🧮<u> CALCULATOR:</u> Invented BY <em>Alone_boy</em> </h2>
+        </b>
 
-    const box = 20;
-    let snake = [];
-    for (let i = 10; i > 0; i--) {
-      snake.push({ x: i * box, y: 10 * box });
-    }
+        <div class="container">
+        <div class="flex flex-col bg-red items-center mx-auto m-w-20"></div>
+<div class="row"></div>
+        <input class="input" type="text"/>
 
-    let direction = "RIGHT";
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-      else if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-      else if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-      else if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
-    });
-
-    function drawSnakeSegment(x, y, isHead) {
-      ctx.fillStyle = isHead ? "#0f0" : "#00ff00";
-      ctx.shadowColor = "#0f0";
-      ctx.shadowBlur = 10;
-      ctx.fillRect(x, y, box, box);
-      ctx.shadowBlur = 0;
-    }
-
-    function draw() {
-      ctx.fillStyle = "#111";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < snake.length; i++) {
-        drawSnakeSegment(snake[i].x, snake[i].y, i === 0);
-      }
-
-      let headX = snake[0].x;
-      let headY = snake[0].y;
-
-      if (direction === "LEFT") headX -= box;
-      if (direction === "RIGHT") headX += box;
-      if (direction === "UP") headY -= box;
-      if (direction === "DOWN") headY += box;
-
-      // Move
-      const newHead = { x: headX, y: headY };
-      snake.pop();
-      snake.unshift(newHead);
-
-      // Collision with wall
-      if (
-        headX < 0 || headX >= canvas.width ||
-        headY < 0 || headY >= canvas.height
-      ) {
-        clearInterval(game);
-        alert("💀 Game Over! Saanp diwar se takra gaya!");
-      }
-
-      // Collision with itself
-      for (let i = 1; i < snake.length; i++) {
-        if (snake[i].x === newHead.x && snake[i].y === newHead.y) {
-          clearInterval(game);
-          alert("💀 Game Over! Saanp ne khud ko kaat liya!");
-        }
-      }
-    }
-
-    const game = setInterval(draw, 100);
-  </script>
-</body>
+        <div class="row"></div>
+        <b>
+                <button class="button">AC</button>
+                
+                <button class="button">🔙</button>
+                <button class="button">➗</button>
+            </b>
+        <div class="row"></div>
+        <button class="button">1</button>
+        <button class="button">2</button>
+        <button class="button">3</button>
+        <b>
+        <button class="button">🟰</button>
+        </b>
+         <div class="row"></div>
+        <button class="button">4</button>
+        <button class="button">5</button>
+        <button class="button">6</button>
+        <b>
+        <button class="button">*</button>
+        </b>
+         <div class="row"></div>
+        <button class="button">7</button>
+        <button class="button">8</button>
+        <button class="button">9</button>
+        <b>
+        <button class="button">-</button>
+        </b>
+        <div class="row"></div>
+<button class="button">00</button>
+<b>
+<button class="button">0</button>
+<button class="button">.</button>
+<button class="button">+</button>
+</b>
+        
+        <div class="abs-box">
+            <button onclick="alert('Thanks for using my Calculator! 🥷🏻💗💗💗💗💗💗💗💗💗💗💗💗💗💗💗 Alone_boy...')">Click Me🤫🤭</button>
+        </div>
+        </div>
+    </body>
 </html>
+<script>
+    let string = "";
+        let buttons = document.querySelectorAll('.button');
+        Array.from(buttons).forEach((button)=>{
+            button.addEventListener('click', (e)=>{
+                if(e.target.innerHTML == '🟰'){
+                    string = eval(string)
+                    document.querySelector('input').value = string;
+                }
+               else if(e.target.innerHTML == 'AC'){
+                    string = ""
+                    document.querySelector('input').value = string;
+                }
+                else if(e.target.innerHTML == '🔙'){
+                    string = string.slice(0,-1);
+                    document.querySelector('input').value = string;
+                }
+                else{
+                let value = e.target.innerHTML;
+                if(value == '➗'){
+                    value = '/';
+                }
+                string = string + value;
+                document.querySelector('input').value = string;
+                }
+            })
+        })
+</script>
